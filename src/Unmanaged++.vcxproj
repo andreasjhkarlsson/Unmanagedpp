@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ComPtr.h" />
     <ClInclude Include="UnmanagedObject.h" />
     <ClInclude Include="UnmanagedPtr.h" />
   </ItemGroup>
