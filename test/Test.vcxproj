@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TestComPtr.cpp" />
+    <ClCompile Include="TestMonitorGuard.cpp" />
     <ClCompile Include="TestUnmanagedObject.cpp" />
     <ClCompile Include="TestUnmanagedPtr.cpp" />
   </ItemGroup>
