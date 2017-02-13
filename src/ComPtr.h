@@ -10,18 +10,23 @@ namespace Unmanagedpp
 	private:
 		// Store a T** instead of a T* so clients can pass
 		// a T** to factory methods.
-		T** ppIUnknown; 
-		ComPtr(const ComPtr<T>% rhs);
+		T** ppIUnknown;
 	public:
 		ComPtr(T* iunknown) : ppIUnknown(new T*)
 		{
-			*ppIUnknown = iunknown;
-			(*ppIUnknown)->AddRef();
+			*ppIUnknown = nullptr;
+			Reset(iunknown);
 		}
 
 		ComPtr() : ppIUnknown(new T*)
 		{
 			*ppIUnknown = nullptr;
+		}
+
+		ComPtr(const ComPtr<T>% rhs): ppIUnknown(new T*)
+		{
+			*ppIUnknown = nullptr;
+			Reset(*rhs.ppIUnknown);
 		}
 
 		~ComPtr()
@@ -82,6 +87,10 @@ namespace Unmanagedpp
 		{
 			Reset(rhs);
 			return *this;
+		}
+
+		static operator T*(ComPtr<T> val) {
+			return *val.ppIUnknown;
 		}
 
 		bool operator==(T* rhs)

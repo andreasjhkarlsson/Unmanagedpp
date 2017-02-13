@@ -122,6 +122,28 @@ namespace Test
 			Assert::IsTrue((bool)b);			
 		}
 
+		[TestMethod]
+		void TestCopy()
+		{
+			auto a = new TestComObject();
+
+			ComPtr<TestComObject> b(a);
+
+			ComPtr<TestComObject> c = b;
+
+			Assert::AreEqual(2, a->RefCount());
+			Assert::IsTrue(b.Ptr == c.Ptr);
+		}
+
+		[TestMethod]
+		void TestConversion()
+		{
+			auto a = new TestComObject();
+			ComPtr<TestComObject> b(a);
+
+			Assert::IsTrue(a == (TestComObject*)b);
+		}
+
 	};
 
 }
