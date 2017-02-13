@@ -54,7 +54,7 @@ namespace Test
 		{
 			TestComObject *a = new TestComObject();
 			ComPtr<TestComObject> b(a);
-			Assert::IsTrue(a == b.Get());
+			Assert::IsTrue(a == b.Ptr);
 		}
 
 		[TestMethod]
@@ -87,7 +87,7 @@ namespace Test
 		{
 			ComPtr<TestComObject> b;
 
-			*b.Ref() = new TestComObject();
+			*b.Out = new TestComObject();
 
 			Assert::AreEqual(b->OneLess(4), 3);
 		}
@@ -97,7 +97,7 @@ namespace Test
 		{
 			ComPtr<TestComObject> b;
 
-			Assert::IsTrue(b.Get() == nullptr);
+			Assert::IsTrue(b.Ptr == nullptr);
 		}
 
 		[TestMethod]

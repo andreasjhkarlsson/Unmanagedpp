@@ -56,14 +56,21 @@ namespace Unmanagedpp
 
 		// Many / most COM interfaces are created by passing a 
 		// pointer to an interface pointer. This method allows access to such a ptr
-		T** Ref()
+		property T** Out
 		{
-			return ppIUnknown;
+			T** get()
+			{
+				return ppIUnknown;
+			}
 		}
 
-		T* Get()
+		property T* Ptr
 		{
-			return *ppIUnknown;
+			T* get()
+			{
+
+				return *ppIUnknown;
+			}
 		}
 
 		T* operator-> ()
