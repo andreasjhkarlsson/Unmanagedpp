@@ -48,6 +48,10 @@ namespace Unmanagedpp
 		// Set the interface pointer.
 		void Reset(T* iunknown)
 		{
+			// Nothing needed if resetting to same object
+			if (*ppIUnknown == iunknown)
+				return;
+
 			// Release old
 			if (*ppIUnknown)
 				(*ppIUnknown)->Release();

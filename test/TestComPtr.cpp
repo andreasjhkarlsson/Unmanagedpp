@@ -16,6 +16,7 @@ namespace Test
 	{
 	private:
 		ULONG refCount = 0;
+		bool deleted = false;
 	public:
 		STDMETHODIMP QueryInterface(REFIID riid, void **ppv)
 		{
@@ -29,7 +30,10 @@ namespace Test
 		{
 			ULONG newRefCount = --refCount;
 			if (newRefCount == 0)
+			{
+				deleted = true;
 				delete this;
+			}
 			return newRefCount;
 		}
 
@@ -41,6 +45,11 @@ namespace Test
 		int OneLess(int n)
 		{
 			return n - 1;
+		}
+
+		bool IsDeleted()
+		{
+			return deleted;
 		}
 	};
 
@@ -142,6 +151,19 @@ namespace Test
 			ComPtr<TestComObject> b(a);
 
 			Assert::IsTrue(a == (TestComObject*)b);
+		}
+
+		[TestMethod]
+		void TestSelfAssign()
+		{
+			auto a = new TestComObject();
+
+			ComPtr<TestComObject> b(a);
+
+			b = a;
+
+			Assert::IsFalse(b->IsDeleted());
+
 		}
 
 	};
